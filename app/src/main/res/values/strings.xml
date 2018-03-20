@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Aplikacja</string>
+    <string name="action_settings">Settings</string>
+    <string name="imie">Imie</string>
+    <string name="title">Aplikacja</string>
+    <string name="label">Wpisz swoje imie: </string>
+    <string name="save">Zapisz</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_note">NoteActivity</string>
+    <string name="action_save">Save</string>
+    <string name="listaNotatek">Notatki</string>
+    <string name="title_activity_notatki">NotatkiActivity</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+</resources>

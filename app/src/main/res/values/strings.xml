@@ -13,4 +13,11 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="title_activity_countdown">CountdownActivity</string>
+    <string name="countdown">Odliczanie</string>
+    <string name="startCountdown">Rozpocznij odliczanie</string>
+    <string name="notifyHint">tytuł powiadomienia</string>
+    <string name="notifyBdy">zawartość powiadomienia</string>
+    <string name="countdownValue">czas w sekundach</string>
+    <string name="name">channel</string>
+    <string name="channel_description">channelDescription</string>
 </resources>

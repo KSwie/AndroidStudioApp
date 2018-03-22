@@ -30,6 +30,12 @@ public class TestActivity extends AppCompatActivity {
 
     public void listaNotatek(View view) {
         Intent intent = new Intent(TestActivity.this,NotatkiActivity.class);
+
+        startActivity(intent);
+    }
+
+    public void countdownClick(View view) {
+        Intent intent =  new Intent(TestActivity.this,CountdownActivity.class);
         startActivity(intent);
     }
 }

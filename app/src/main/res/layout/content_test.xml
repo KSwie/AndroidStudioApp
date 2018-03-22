@@ -30,4 +30,14 @@
         android:layout_marginTop="19dp"
         android:text="@string/listaNotatek"
         android:onClick="listaNotatek"/>
+
+    <Button
+        android:id="@+id/countdownBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listaNotatek"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="@string/countdown"
+        android:onClick="countdownClick"/>
 </RelativeLayout>

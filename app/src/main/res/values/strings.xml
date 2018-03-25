@@ -20,4 +20,6 @@
     <string name="countdownValue">czas w sekundach</string>
     <string name="name">channel</string>
     <string name="channel_description">channelDescription</string>
+    <string name="dialogFileNameHint">podaj nazwe pliku</string>
+    <string name="fileNameBtnString">Zapisz</string>
 </resources>

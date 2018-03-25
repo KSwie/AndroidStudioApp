@@ -1,35 +1,36 @@
 package com.example.kamil.aplikacja;
 
 import android.Manifest;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class NoteActivity extends AppCompatActivity {
+public class NoteActivity extends AppCompatActivity{
 
     EditText et;
     private String path = Environment.getExternalStorageDirectory().toString() + "/Aplikacja";
     private final int memoryAccess = 5;
+    private EditText fileName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,6 @@ public class NoteActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(NoteActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, memoryAccess);
             }
         }
-
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -78,14 +77,29 @@ public class NoteActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_save){
-            createDir();
-            createFile();
-            finish();
+            final AlertDialog alertDialog = new AlertDialog.Builder(NoteActivity.this).create();
+            alertDialog.setMessage("Podaj nazwe pliku:");
+            LayoutInflater inflater = NoteActivity.this.getLayoutInflater();
+            alertDialog.setView(inflater.inflate(R.layout.filename_dialog_window, null));
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Zapisz",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            fileName = alertDialog.findViewById(R.id.fileNameDialogText);
+                            createDir();
+                            createFile(fileName.getText().toString());
+                            finish();
+                            dialog.dismiss();
+
+                        }
+                    });
+            alertDialog.show();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
     @Override
     protected void onRestart() {
@@ -124,7 +138,7 @@ public class NoteActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    private void createDir(){
+    protected void createDir(){
         File folder = new File(path);
         if(!folder.exists()){
             try{
@@ -136,8 +150,9 @@ public class NoteActivity extends AppCompatActivity {
         }
     }
 
-    private void createFile(){
-        File file = new File(path+"/"+System.currentTimeMillis()+".txt");
+
+    protected void createFile(String nazwa){
+        File file = new File(path+"/"+nazwa+".txt");
         FileOutputStream fos;
         OutputStreamWriter outWriter;
 

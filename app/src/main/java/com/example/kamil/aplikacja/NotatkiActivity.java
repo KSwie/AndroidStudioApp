@@ -12,7 +12,9 @@ import com.google.common.io.Files;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 public class NotatkiActivity extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class NotatkiActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         notatki = findViewById(R.id.notatkiView);
-        notatki.setText(getAllContent());
+        notatki.setText(wyswietlNotatki());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -50,12 +52,33 @@ public class NotatkiActivity extends AppCompatActivity {
             }
             return sb.toString();
         }
-        catch (Exception e){
-            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
             return "";
         }
-
-
     }
 
+    private String wyswietlNotatki(){
+        try{
+            File file = new File(path);
+            String[] fileName = file.list(new FilenameFilter() {
+                @Override
+                public boolean accept(File file, String name) {
+                    return name.endsWith(".txt");
+                }
+            });
+
+            StringBuffer sb = new StringBuffer();
+            for(int i=0;i<fileName.length;i++){
+                sb.append(Files.getNameWithoutExtension(fileName[i]));
+                sb.append(przerywnik);
+            }
+
+            return sb.toString();
+        }
+        catch(Exception e){
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
 }

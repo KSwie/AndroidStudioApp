@@ -29,13 +29,19 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void listaNotatek(View view) {
-        Intent intent = new Intent(TestActivity.this,NotatkiActivity.class);
+        Intent intent = new Intent(TestActivity.this,ListOfNoteActivity.class);
 
         startActivity(intent);
     }
 
     public void countdownClick(View view) {
         Intent intent =  new Intent(TestActivity.this,CountdownActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void primeNumber(View view) {
+        Intent intent =  new Intent(TestActivity.this,PrimeNumberActivity.class);
         startActivity(intent);
     }
 }

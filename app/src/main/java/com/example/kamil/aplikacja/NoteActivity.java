@@ -89,7 +89,6 @@ public class NoteActivity extends AppCompatActivity{
                             createFile(fileName.getText().toString());
                             finish();
                             dialog.dismiss();
-
                         }
                     });
             alertDialog.show();
@@ -97,8 +96,6 @@ public class NoteActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     @Override

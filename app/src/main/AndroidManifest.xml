@@ -39,15 +39,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kamil.aplikacja.TestActivity" />
         </activity>
-        <activity
-            android:name=".NotatkiActivity"
-            android:label="@string/title_activity_notatki"
-            android:parentActivityName=".TestActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.kamil.aplikacja.TestActivity" />
-        </activity>
 
         <receiver android:name=".AppWidget">
             <intent-filter>
@@ -62,6 +53,33 @@
         <activity
             android:name=".CountdownActivity"
             android:label="@string/title_activity_countdown"
+            android:parentActivityName=".TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kamil.aplikacja.TestActivity" />
+        </activity>
+        <activity
+            android:name=".ListOfNoteActivity"
+            android:label="@string/title_activity_list_of_note"
+            android:parentActivityName=".TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kamil.aplikacja.TestActivity" />
+        </activity>
+        <activity
+            android:name=".NoteShowContent"
+            android:label="@string/title_activity_note_show_content"
+            android:parentActivityName=".ListOfNoteActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kamil.aplikacja.ListOfNoteActivity" />
+        </activity>
+        <activity
+            android:name=".PrimeNumberActivity"
+            android:label="@string/title_activity_prime_number"
             android:parentActivityName=".TestActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

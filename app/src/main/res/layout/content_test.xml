@@ -35,9 +35,20 @@
         android:id="@+id/countdownBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/listaNotatek"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:text="@string/countdown"
-        android:onClick="countdownClick"/>
+        android:layout_above="@+id/intentPrimeNumberActivity"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="21dp"
+        android:onClick="countdownClick"
+        android:text="@string/countdown" />
+
+    <Button
+        android:id="@+id/intentPrimeNumberActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:onClick="primeNumber"
+        android:text="@string/primeNumberString" />
 </RelativeLayout>

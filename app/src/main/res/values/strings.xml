@@ -22,4 +22,9 @@
     <string name="channel_description">channelDescription</string>
     <string name="dialogFileNameHint">podaj nazwe pliku</string>
     <string name="fileNameBtnString">Zapisz</string>
+    <string name="title_activity_list_of_note">ListOfNoteActivity</string>
+    <string name="title_activity_note_show_content">NoteShowContent</string>
+    <string name="title_activity_prime_number">PrimeNumberActivity</string>
+    <string name="start">Start</string>
+    <string name="primeNumberString">Prime Number</string>
 </resources>

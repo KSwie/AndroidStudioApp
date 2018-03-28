@@ -44,4 +44,19 @@ public class TestActivity extends AppCompatActivity {
         Intent intent =  new Intent(TestActivity.this,PrimeNumberActivity.class);
         startActivity(intent);
     }
+
+    public void levelActivityClick(View view) {
+        Intent intent =  new Intent(TestActivity.this,LevelActivity.class);
+        startActivity(intent);
+    }
+
+    public void drawActivityClick(View view) {
+        Intent intent =  new Intent(TestActivity.this,DrawActivity.class);
+        startActivity(intent);
+    }
+
+    public void takePhotoClick(View view) {
+        Intent intent =  new Intent(TestActivity.this,CameraActivity.class);
+        startActivity(intent);
+    }
 }

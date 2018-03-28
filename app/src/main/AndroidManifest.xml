@@ -86,6 +86,35 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kamil.aplikacja.TestActivity" />
         </activity>
+        <activity
+            android:name=".LevelActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_level"
+            android:parentActivityName=".TestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kamil.aplikacja.TestActivity" />
+        </activity>
+        <activity
+            android:name=".DrawActivity"
+            android:label="@string/title_activity_draw"
+            android:parentActivityName=".TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kamil.aplikacja.TestActivity" />
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camera"
+            android:parentActivityName=".TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kamil.aplikacja.TestActivity" />
+        </activity>
     </application>
 
 </manifest>

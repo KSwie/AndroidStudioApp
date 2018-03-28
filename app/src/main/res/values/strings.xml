@@ -27,4 +27,13 @@
     <string name="title_activity_prime_number">PrimeNumberActivity</string>
     <string name="start">Start</string>
     <string name="primeNumberString">Prime Number</string>
+    <string name="title_activity_level">LevelActivity</string>
+    <string name="LevelActivityString">Sensor</string>
+    <string name="title_activity_draw">DrawActivity</string>
+    <string name="drawBtnString">Rysuj</string>
+    <string name="cleanScreenBtnString">Wyczyść ekran</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="takePhotoBtnString">Zrób zdjęcie</string>
+    <string name="openGalleryBtnString">Galeria</string>
+    <string name="takePhotoString">Zrób zdjęcie</string>
 </resources>

@@ -36,4 +36,11 @@
     <string name="takePhotoBtnString">Zrób zdjęcie</string>
     <string name="openGalleryBtnString">Galeria</string>
     <string name="takePhotoString">Zrób zdjęcie</string>
+    <string name="testBtnString">Test Activity</string>
+    <string name="bluetoothBtnString">Bluetooth</string>
+    <string name="title_activity_bluetooth">BluetoothActivity</string>
+    <string name="bluetoothActivityBtnString">Bluetooth ON/OFF</string>
+    <string name="discoverabilityString">Enable discoverability</string>
+    <string name="title_activity_btdevice_list">BTDeviceListActivity</string>
+    <string name="discoverDevicesString">Discover Devices</string>
 </resources>

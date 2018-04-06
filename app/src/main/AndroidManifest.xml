@@ -128,15 +128,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kamil.aplikacja.MainActivity" />
         </activity>
-        <activity
-            android:name=".BTDeviceListActivity"
-            android:label="@string/title_activity_btdevice_list"
-            android:parentActivityName=".BluetoothActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.kamil.aplikacja.BluetoothActivity" />
-        </activity>
     </application>
 
 </manifest>

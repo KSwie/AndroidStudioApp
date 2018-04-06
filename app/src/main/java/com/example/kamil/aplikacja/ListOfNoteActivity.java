@@ -30,7 +30,7 @@ public class ListOfNoteActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_list_of_note);
-        listview = (ListView)findViewById(R.id.listView);
+        listview = findViewById(R.id.listView);
         String[] values = wyswietlNotatki();
         listview.setAdapter(new ArrayAdapter<>(ListOfNoteActivity.this,
                 android.R.layout.simple_list_item_1, values));
@@ -46,10 +46,6 @@ public class ListOfNoteActivity extends AppCompatActivity {
         });
 
        // System.out.println("tekst: "+tmp);
-    }
-
-    public String getNazwaPliku(){
-        return this.nazwaPliku;
     }
 
     protected String[] wyswietlNotatki(){

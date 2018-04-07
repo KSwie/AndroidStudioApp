@@ -5,14 +5,17 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -26,11 +29,13 @@ public class BluetoothActivity extends AppCompatActivity {
     BluetoothAdapter mBluetoothAdapter;
     Button btnOnOff;
     Button disEnabDiscoverabilityBtn;
-    public ArrayList<String> mBTDevices = new ArrayList<>();
+    public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
+    public ArrayList<String> deviceDataList = new ArrayList<>();
     ListView listViewDevices;
     boolean isRegistered1 = false;
     boolean isRegistered2 = false;
     boolean isRegistered3 = false;
+    boolean isRegistered4 = false;
 
     private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
         @Override
@@ -94,10 +99,73 @@ public class BluetoothActivity extends AppCompatActivity {
 
             if(action.equals(BluetoothDevice.ACTION_FOUND)){
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                mBTDevices.add(device.getName() + "\n" + device.getAddress());
+                mBTDevices.add(device);
+                deviceDataList.add(device.getName() + "\n" + device.getAddress());
                 Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
                 listViewDevices.setAdapter(new ArrayAdapter<>(BluetoothActivity.this,
-                        android.R.layout.simple_list_item_1,mBTDevices));
+                        android.R.layout.simple_list_item_1,deviceDataList));
+                listViewDevices.setClickable(true);
+                listViewDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                        //tworzenie okna dialogowego
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(BluetoothActivity.this);
+                        dialog.setMessage("Czy chcesz sparować z tym urządzeniem?");
+                        dialog.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mBluetoothAdapter.cancelDiscovery();
+                                Log.d(TAG, "onItemClick: you click on the device");
+
+                                String name = mBTDevices.get(position).getName();
+                                String address = mBTDevices.get(position).getAddress();
+                                Log.d(TAG, "onItemClick: deviceName = "+ name);
+                                Log.d(TAG, "onItemClick: deviceAddress = "+ address);
+
+                                if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2){
+                                    Log.d(TAG, "onItemClick: Trying to pair with: "+ name);
+                                    mBTDevices.get(position).createBond();
+                                }
+                            }
+                        });
+
+                        dialog.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        dialog.create();
+                        dialog.show();
+                    }
+                });
+            }
+        }
+    };
+
+    private final BroadcastReceiver mBroadcastReceiver4 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if(action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)){
+                BluetoothDevice mDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+                //urzadzenie jest powiazane
+                if(mDevice.getBondState() == BluetoothDevice.BOND_BONDED){
+                    Log.d(TAG, "onReceive: BOND_BONDED");
+                }
+
+                //tworzenie powiazania
+                if(mDevice.getBondState() == BluetoothDevice.BOND_BONDING){
+                    Log.d(TAG, "onReceive: BOND_BONDING");
+                }
+
+                //brak powiazania
+                if(mDevice.getBondState() == BluetoothDevice.BOND_NONE){
+                    Log.d(TAG, "onReceive: BOND_NONE");
+                }
             }
         }
     };
@@ -116,6 +184,10 @@ public class BluetoothActivity extends AppCompatActivity {
         if(isRegistered3){
             unregisterReceiver(mBroadcastReceiver3);
         }
+
+        if(isRegistered4){
+            unregisterReceiver(mBroadcastReceiver4);
+        }
     }
 
     @Override
@@ -131,6 +203,10 @@ public class BluetoothActivity extends AppCompatActivity {
         listViewDevices = findViewById(R.id.listViewBT);
         mBTDevices = new ArrayList<>();
 
+        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        registerReceiver(mBroadcastReceiver4,intentFilter);
+        isRegistered4 = true;
+
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         btnOnOff.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +219,9 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     public void enableDisableBT(){
+        deviceDataList.clear();
+        listViewDevices.setAdapter(null);
+
         if(mBluetoothAdapter == null){
             Log.d(TAG, "enableDisableBT: Telefon nie posiada BLluetooth");
         }
@@ -176,7 +255,8 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     public void discoverDevicesClick(View view) {
-        mBTDevices.clear();
+        deviceDataList.clear();
+        listViewDevices.setAdapter(null);
         if(!mBluetoothAdapter.isEnabled()){
             Toast.makeText(this,"Moduł Bluetooth jest wyłączony!",Toast.LENGTH_LONG).show();
         }

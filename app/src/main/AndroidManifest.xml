@@ -128,6 +128,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kamil.aplikacja.MainActivity" />
         </activity>
+        <activity
+            android:name=".BluetoothChatActivity"
+            android:label="@string/title_activity_bluetooth_chat"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kamil.aplikacja.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

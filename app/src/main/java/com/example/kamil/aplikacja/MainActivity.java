@@ -60,4 +60,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
         startActivity(intent);
     }
+
+    public void bluetoothChatClick(View view) {
+        Intent intent = new Intent(MainActivity.this, BluetoothChatActivity.class);
+        startActivity(intent);
+    }
 }

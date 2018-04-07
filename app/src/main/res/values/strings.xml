@@ -43,4 +43,6 @@
     <string name="discoverabilityString">Enable discoverability</string>
     <string name="title_activity_btdevice_list">BTDeviceListActivity</string>
     <string name="discoverDevicesString">Discover Devices</string>
+    <string name="title_activity_bluetooth_chat">BluetoothChatActivity</string>
+    <string name="bluetoothChatString">Bluetooth Chat</string>
 </resources>

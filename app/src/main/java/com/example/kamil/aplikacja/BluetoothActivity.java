@@ -19,19 +19,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class BluetoothActivity extends AppCompatActivity {
 
     private static final String TAG = "BluetoothActivity";
     BluetoothAdapter mBluetoothAdapter;
     Button btnOnOff;
-    Button disEnabDiscoverabilityBtn;
+    Button disEnaDiscoverabilityBtn;
+    ProgressBar progressBar;
     public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
-    public ArrayList<String> deviceDataList = new ArrayList<>();
+    //public ArrayList<String> deviceDataList = new ArrayList<>();
     ListView listViewDevices;
+    HashSet<String> setDevices;
     boolean isRegistered1 = false;
     boolean isRegistered2 = false;
     boolean isRegistered3 = false;
@@ -100,10 +105,11 @@ public class BluetoothActivity extends AppCompatActivity {
             if(action.equals(BluetoothDevice.ACTION_FOUND)){
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 mBTDevices.add(device);
-                deviceDataList.add(device.getName() + "\n" + device.getAddress());
+
+                setDevices.add(device.getName() + "\n" + device.getAddress());
                 Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
                 listViewDevices.setAdapter(new ArrayAdapter<>(BluetoothActivity.this,
-                        android.R.layout.simple_list_item_1,deviceDataList));
+                        android.R.layout.simple_list_item_1,setDevices.toArray()));
                 listViewDevices.setClickable(true);
                 listViewDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -199,9 +205,11 @@ public class BluetoothActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnOnOff = findViewById(R.id.BTonOfBtn);
-        disEnabDiscoverabilityBtn = findViewById(R.id.discoverabilityBtn);
+        disEnaDiscoverabilityBtn = findViewById(R.id.discoverabilityBtn);
         listViewDevices = findViewById(R.id.listViewBT);
         mBTDevices = new ArrayList<>();
+        setDevices = new HashSet<>();
+        progressBar = findViewById(R.id.progressBarBluetooth);
 
         IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         registerReceiver(mBroadcastReceiver4,intentFilter);
@@ -219,11 +227,12 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     public void enableDisableBT(){
-        deviceDataList.clear();
+        setDevices.clear();
+
         listViewDevices.setAdapter(null);
 
         if(mBluetoothAdapter == null){
-            Log.d(TAG, "enableDisableBT: Telefon nie posiada BLluetooth");
+            Log.d(TAG, "enableDisableBT: Telefon nie posiada Bluetooth");
         }
 
         if(!mBluetoothAdapter.isEnabled()){
@@ -255,12 +264,14 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     public void discoverDevicesClick(View view) {
-        deviceDataList.clear();
+        setDevices.clear();
+
         listViewDevices.setAdapter(null);
         if(!mBluetoothAdapter.isEnabled()){
             Toast.makeText(this,"Moduł Bluetooth jest wyłączony!",Toast.LENGTH_LONG).show();
         }
         else{
+            //progressBar.setVisibility(View.VISIBLE);
             if(mBluetoothAdapter.isDiscovering()){
                 mBluetoothAdapter.cancelDiscovery();
 
